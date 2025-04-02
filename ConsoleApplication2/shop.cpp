@@ -1,1 +1,6 @@
-#include "./shop.h"
+#include "shop.h"
+
+void Shop::title()
+{
+	return;
+}
