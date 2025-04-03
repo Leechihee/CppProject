@@ -50,28 +50,20 @@ void Shop::displayThingsList(Seller seller)
 	std::cout << "    a.품목 추가/수정\tb.품목 제거\tq.나가기\n";
 }
 
-bool Shop::pushThingsToList(const Things& things)
-{
-	if (thingsList.size() < 10)
-	{
-		thingsList.push_back(things);
-		return true;
-	}
-	else
-		return false;
-}
-
 bool Shop::pushThingsToList(const Things& things, const int& index)
 {
-	if (index < 1 || index >= thingsList.size() || thingsList.size() >= max)
+	if (thingsList.empty())
+		thingsList.push_back(things);
+	else if (index < 1 || index > thingsList.size() || thingsList.size() >= max)
 		return false;
-	thingsList.insert(thingsList.begin() + index - 1, things);
+	else
+		thingsList.insert((thingsList.begin() + index - 1), things);
 	return true;
 }
 
 bool Shop::popThingsToList(const int& index)
 {
-	if (index < 1 || index>=thingsList.size())
+	if (index < 1 || index>thingsList.size())
 		return false;
 	thingsList.erase(thingsList.begin()+index-1);
 	return true;

@@ -13,6 +13,7 @@ protected: // 계정의 정보를 protected로 외부로부터 보호 / 자녀 클래스로 상속
 public:
 	Account(std::string Name, std::string Id, std::string Password) : id(Id), name(Name), password(Password){}
 	virtual void displayInfo() = 0; // 계정 정보 출력, 순수가상함수
+	// std::cout << "이름 : " << name << "\nID : " << id << std::endl << "권한 : ===\n";
 	virtual bool activite(); // 계정 권한 출력 / 판매자권한이면 true, 소비자권한이면 false 출력
 	bool login(std::string ID, std::string PW); // ID와 PW가 둘 다 맞지 않으면 false, 맞다면 true
 	~Account() {}
@@ -27,7 +28,7 @@ public:
 
 class Customer : public Account {
 public:
-	using Account::Account; // 생성사 상속
+	using Account::Account; // 생성자 상속
 	void displayInfo() override;
 	int buyThings(void); // 구매할 품목의 개수를 입력받아 정수값으로 리턴
 };
@@ -39,11 +40,11 @@ class Things {
 public:
 	Things(std::string Type, int Count, int Amount) : thingsType(Type), count(Count), amount(Amount) {}
 	Things(const Things& things);
-	void thingsDisplay(); // 이 객체가 어떤 품목을 판매하고 현재 남은 개수와 가격을 화면에 출력
+	void thingsDisplay(void); // 이 객체가 어떤 품목을 판매하고 현재 남은 개수와 가격을 화면에 출력
 	void setAmount(int Amount); // 품목 가격 재설정
 	void operator+(const int& Count); // 품목의 개수를 추가할 때 쓸 + 연산자
 	void operator+=(const int& Count); // 품목의 개수를 추가할 때 쓸 += 연산자
-	void operator-(const int& Count); // 품목의 개수를 제거할 때 쓸 - 연산자
-	void operator-=(const int& Count); // 품목의 개수를 제거할 때 쓸 -= 연산자
+	bool operator-(const int& Count); // 품목의 개수를 제거할 때 쓸 - 연산자, 연산했을 때, 남은 개수가 0이면 false 리턴, 아니라면 true 리턴
+	bool operator-=(const int& Count); // 품목의 개수를 제거할 때 쓸 -= 연산자, 연산했을 때, 남은 개수가 0이면 false 리턴, 아니라면 true 리턴
 };
 #endif

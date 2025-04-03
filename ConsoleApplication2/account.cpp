@@ -52,14 +52,24 @@ void Things::operator+(const int& Count) {
 	this->count += Count;
 }
 
-void Things::operator-(const int& Count) {
-	this->count -= Count;
+bool Things::operator-(const int& Count) {
+	if (this->count > Count)
+	{
+		this->count -= Count;
+		return true;
+	}
+	else
+	{
+		std::cout << "구매 총량이 현재 수량보다 많게 입력되어 현재수량만큼 구매했습니다.\n";
+		this->count = 0;
+		return false;
+	}
 }
 
 void Things::operator+=(const int& Count) {
 	*this + Count;
 }
 
-void Things::operator-=(const int& Count) {
-	*this - Count;
+bool Things::operator-=(const int& Count) {
+	return *this - Count;
 }
