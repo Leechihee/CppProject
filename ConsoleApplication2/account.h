@@ -14,7 +14,7 @@ public:
 	Account(std::string Name, std::string Id, std::string Password) : id(Id), name(Name), password(Password){}
 	virtual void displayInfo() = 0; // 계정 정보 출력, 순수가상함수
 	virtual bool activite(); // 계정 권한 출력 / 판매자권한이면 true, 소비자권한이면 false 출력
-	bool login(std::string ID, std::string PW);
+	bool login(std::string ID, std::string PW); // ID와 PW가 둘 다 맞지 않으면 false, 맞다면 true
 	~Account() {}
 };
 
