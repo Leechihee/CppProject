@@ -1,5 +1,4 @@
 #include "account.h"
-#include <iostream>
 
 // Account Public Method
 bool Account::login(std::string ID, std::string PW)
@@ -34,8 +33,15 @@ int Customer::buyThings() {
 }
 
 // Things Public Method
+Things::Things(const Things& things)
+{
+	this->thingsType = things.thingsType;
+	this->count = things.count;
+	this->amount = things.amount;
+}
+
 void Things::thingsDisplay() {
-	std::cout << thingsType << '\t' << count << '\t' << amount << std::endl;
+	std::cout << '\t' << thingsType << "\t\t   " << count << "\t\t\t" << amount << '\t' << std::endl;
 }
 
 void Things::setAmount(int Amount) {

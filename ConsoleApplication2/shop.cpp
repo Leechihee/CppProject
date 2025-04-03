@@ -1,12 +1,34 @@
 #include "shop.h"
-
+#include <windows.h>
 
 // Shop Private Method
 void Shop::ListTop()
 {
-	std::cout << "\t품목\t\t남은 개수\t\t가격\n";
+	system("cls");
+	for (int i = 0;i < 60;i++)
+		std::cout << '=';
+	std::cout << "\n\t품목\t\t남은 개수\t\t가격\n";
 }
 
+void Shop::displayList()
+{
+	int index;
+	for (index = 0;index < thingsList.size();index++)
+	{
+		std::cout << index + 1 << ". ";
+		thingsList[index].thingsDisplay();
+	}
+	for (;index < max;index++)
+	{
+		std::cout << index + 1 << ". ";
+		std::cout << '\t' << "----" << "\t\t  " << "----" << "\t\t\t" << "----" << '\t' << std::endl;
+	}
+	for (int i = 0;i < 60;i++)
+		std::cout << '=';
+	std::cout << std::endl;
+}
+
+// Shop Public Method
 void Shop::title()
 {
 	return;
@@ -14,17 +36,34 @@ void Shop::title()
 
 void Shop::menu()
 {
-	std::cout << "l. 판매 품목 리스트 출력\t";
-	std::cout << "i. 계정 정보 출력\n";
+	std::cout << "a. 판매 품목 리스트 출력\t";
+	std::cout << "b. 계정 정보 출력\n";
 	std::cout << "q. 로그아웃\n";
 }
 
-void Shop::displayThingsList(Seller* seller)
+void Shop::displayThingsList(Seller seller)
 {
 	ListTop();
+	displayList();
+	std::cout << std::endl;
+	std::cout << "    a.품목 추가/수정\tb.품목 제거\tq.나가기\n";
 }
 
-void Shop::displayThingsList(Customer* customer)
+bool Shop::pushThingsToList(const Things& things)
+{
+	if (thingsList.size() < 10)
+	{
+		thingsList.push_back(things);
+		return true;
+	}
+	else
+		return false;
+}
+
+void Shop::displayThingsList(Customer customer)
 {
 	ListTop();
+	displayList();
+	std::cout << std::endl;
+	std::cout << "\ta.물건 구매하기\t\tq.나가기\n";
 }
