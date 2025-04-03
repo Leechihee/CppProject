@@ -15,6 +15,11 @@ void Customer::displayInfo() {
 	std::cout << "이름 : " << name << "\nID : " << id << std::endl << "권한 : 소비자\n";
 }
 
+bool Customer::login(std::string ID, std::string PW)
+{
+
+}
+
 int Customer::buyThings() {
 	int count;
 	std::cout << "구매할 수량을 입력하세요 : ";

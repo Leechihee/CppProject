@@ -4,6 +4,10 @@
 #include "./account.h"
 #include <vector>
 
+
+Seller seller("Leechihee", "20220938", "0011223344");
+Customer customer("Leechihee", "20220938", "0011223344");
+
 class Shop {
 	std::vector<Things> thingsList;
 	bool state = false;

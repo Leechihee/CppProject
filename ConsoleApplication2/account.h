@@ -12,7 +12,7 @@ protected: // 계정의 정보를 protected로 외부로부터 보호 / 자녀 클래스로 상속
 public:
 	Account(std::string Name, std::string Id, std::string Password) : id(Id), name(Name) {}
 	virtual void displayInfo() = 0; // 계정 정보 출력
-	//virtual std::string* login() = 0;
+	virtual bool login(std::string ID, std::string PW) = 0;
 	~Account() {}
 };
 
