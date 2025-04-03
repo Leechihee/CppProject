@@ -41,6 +41,7 @@ void Shop::menu()
 	std::cout << "q. ·Î±×¾Æ¿ô\n";
 }
 
+// Seller Option Method
 void Shop::displayThingsList(Seller seller)
 {
 	ListTop();
@@ -60,6 +61,23 @@ bool Shop::pushThingsToList(const Things& things)
 		return false;
 }
 
+bool Shop::pushThingsToList(const Things& things, const int& index)
+{
+	if (index < 1 || index >= thingsList.size() || thingsList.size() >= max)
+		return false;
+	thingsList.insert(thingsList.begin() + index - 1, things);
+	return true;
+}
+
+bool Shop::popThingsToList(const int& index)
+{
+	if (index < 1 || index>=thingsList.size())
+		return false;
+	thingsList.erase(thingsList.begin()+index-1);
+	return true;
+}
+
+// Customer Option Method
 void Shop::displayThingsList(Customer customer)
 {
 	ListTop();
