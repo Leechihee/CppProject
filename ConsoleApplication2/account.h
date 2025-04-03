@@ -9,16 +9,18 @@ class Things; // Seller class에서 Things를 쓰기 위해 미리 선언
 class Account {
 protected: // 계정의 정보를 protected로 외부로부터 보호 / 자녀 클래스로 상속
 	std::string name, id, password;
+	bool permission = false;
 public:
-	Account(std::string Name, std::string Id, std::string Password) : id(Id), name(Name) {}
+	Account(std::string Name, std::string Id, std::string Password) : id(Id), name(Name), password(Password){}
 	virtual void displayInfo() = 0; // 계정 정보 출력
-	virtual bool login(std::string ID, std::string PW) = 0;
+	virtual bool activite(); // 계정 권한 출력 / 판매자권한이면 true, 소비자권한이면 false 출력
+	bool login(std::string ID, std::string PW);
 	~Account() {}
 };
 
 class Seller : public Account {
 public:
-	using Account::Account;
+	Seller(std::string Name, std::string Id, std::string Password) : Account(Name, Id, Password) { permission = true; }
 	void displayInfo() override;
 	Things inputListThings(std::string Type, int Count, int Amount); // 판매할 물품 종류, 개수, 가격을 입력받아 Things 객체를 출력
 };
