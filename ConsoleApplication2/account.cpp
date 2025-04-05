@@ -1,11 +1,8 @@
 #include "account.h"
+#include <limits>
+#include <windows.h>
 
 // Account Public Method
-bool Account::login(std::string ID, std::string PW)
-{
-	return (id == ID && password == PW);
-}
-
 bool Account::activite()
 {
 	return permission;
@@ -13,7 +10,8 @@ bool Account::activite()
 
 // Seller Public Method
 void Seller::displayInfo() {
-	std::cout << "이름 : " << name << "\nID : " << id << std::endl << "권한 : 관리자\n";
+	std::cout << "\n\t\t      이름 : " << name << std::endl << "\n\t\t      권한 : 관리자\n\n\t    ";
+	system("pause");
 }
 
 Things Seller::inputListThings(std::string Type, int Count, int Amount) {
@@ -22,13 +20,14 @@ Things Seller::inputListThings(std::string Type, int Count, int Amount) {
 
 // Customer Public Method
 void Customer::displayInfo() {
-	std::cout << "이름 : " << name << "\nID : " << id << std::endl << "권한 : 소비자\n";
+	std::cout << "\n\t\t      이름 : " << name << std::endl << "\n\t\t      권한 : 소비자\n\n\t    ";
+	system("pause");
 }
 
 int Customer::buyThings() {
 	int count;
-	std::cout << "구매할 수량을 입력하세요 : ";
-	std::cin >> count;
+	std::cout << "\n\t구매할 수량을 입력하세요 : ";
+	(std::cin >> count).ignore(2, '\n');;
 	return count;
 }
 
@@ -60,7 +59,7 @@ bool Things::operator-(const int& Count) {
 	}
 	else
 	{
-		std::cout << "구매 총량이 현재 수량보다 많게 입력되어 현재수량만큼 구매했습니다.\n";
+		std::cout << "\n구매 총량이 현재 수량보다 많게 입력되어 현재수량만큼 구매했습니다.\n";
 		this->count = 0;
 		return false;
 	}
