@@ -2,25 +2,25 @@
 #include <vector>
 #include <windows.h>
 #include <string>
+#include <conio.h>
 
 class Things; // Seller class에서 Things를 쓰기 위해 미리 선언, 클래스 구현은 아래
 
 class Account { //추상화 클래스
 protected: // 계정의 정보를 protected로 외부로부터 보호 / 자녀 클래스로 상속
-	std::string name, id, password;
+	std::string name;
 	bool permission = false;
 public:
-	Account(std::string Name, std::string Id, std::string Password) : id(Id), name(Name), password(Password) {}
+	Account(std::string Name) : name(Name) {}
 	virtual void displayInfo() = 0; // 계정 정보 출력, 순수가상함수
 	// std::cout << "이름 : " << name << "\nID : " << id << std::endl << "권한 : ===\n";
 	virtual bool activite(); // 계정 권한 출력 / 판매자권한이면 true, 소비자권한이면 false 출력
-	bool login(std::string ID, std::string PW); // ID와 PW가 둘 다 맞지 않으면 false, 맞다면 true
 	~Account() {}
 };
 
 class Seller : public Account {
 public:
-	Seller(std::string Name, std::string Id, std::string Password) : Account(Name, Id, Password) { permission = true; }
+	Seller(std::string Name) : Account(Name) { permission = true; }
 	void displayInfo() override;
 	Things inputListThings(std::string Type, int Count, int Amount); // 판매할 물품 종류, 개수, 가격을 입력받아 Things 객체를 출력
 };
@@ -56,6 +56,7 @@ public:
 	// CUI Display Method
 	void title(); // 메인화면 출력 / 아직 시도안함
 	void menu(); // 행동을 선택할 수 있는 메뉴 출력
+	int tryLogin();
 	//a. 판매 품목 리스트 출력, b. 계정 정보 출력 q. 로그아웃
 	// Seller Class Option
 	void displayThingsList(Seller seller); // 판매자권한으로 품목 리스트 화면출력, 함수 오버로딩
@@ -70,21 +71,46 @@ public:
 
 int main()
 {
-	Seller seller("Admin", "admin", "00000000");
-	Customer customer("Customer", "customer", "99999999");
+	Shop shop;
+	Account* cur = nullptr;
 
-	Shop test;
-	test.displayThingsList(seller);
+	while (true)
+	{
+		int select = shop.tryLogin();
+		if (select == 1)
+			cur = new Seller("Admin");
+		else if (select == 2)
+			cur = new Customer("Customer");
+		else
+		{
+			std::cout << "\n프로그램 종료\n";
+			return 0;
+		}
 
+		shop.menu();
+		bool Exit = 1;
+		while (Exit)
+		{
+			switch (_getch())
+			{
+			case 'a':
+				break;
+			case 'b':
+				break;
+			case 'q':
+				delete cur;
+				cur = nullptr;
+				Exit = 0;
+				break;
+			default:
+				std::cout << "잘못입력하셨습니다.\n";
+			}
+		}
+	}
 	return 0;
 }
 
 // Account Public Method
-bool Account::login(std::string ID, std::string PW)
-{
-	return (id == ID && password == PW);
-}
-
 bool Account::activite()
 {
 	return permission;
@@ -92,7 +118,7 @@ bool Account::activite()
 
 // Seller Public Method
 void Seller::displayInfo() {
-	std::cout << "이름 : " << name << "\nID : " << id << std::endl << "권한 : 관리자\n";
+	std::cout << "이름 : " << name << std::endl << "권한 : 관리자\n";
 }
 
 Things Seller::inputListThings(std::string Type, int Count, int Amount) {
@@ -101,7 +127,7 @@ Things Seller::inputListThings(std::string Type, int Count, int Amount) {
 
 // Customer Public Method
 void Customer::displayInfo() {
-	std::cout << "이름 : " << name << "\nID : " << id << std::endl << "권한 : 소비자\n";
+	std::cout << "이름 : " << name << std::endl << "권한 : 소비자\n";
 }
 
 int Customer::buyThings() {
@@ -153,9 +179,6 @@ bool Things::operator-=(const int& Count) {
 	return *this - Count;
 }
 
-#include "shop.h"
-#include <windows.h>
-
 // Shop Private Method
 void Shop::ListTop()
 {
@@ -186,14 +209,78 @@ void Shop::displayList()
 // Shop Public Method
 void Shop::title()
 {
+	system("cls");
+	std::string S[] = {
+		" ####  ",
+		"#     #",
+		"#      ",
+		" ####  ",
+		"     # ",
+		"#     #",
+		" ####  "
+	};
+	std::string H[] = {
+		"#     #",
+		"#     #",
+		"#     #",
+		"#######",
+		"#     #",
+		"#     #",
+		"#     #"
+	};
+	std::string O[] = {
+		" ##### ",
+		"#     #",
+		"#     #",
+		"#     #",
+		"#     #",
+		"#     #",
+		" ##### "
+	};
+	std::string P[] = {
+		"###### ",
+		"#     #",
+		"#     #",
+		"###### ",
+		"#      ",
+		"#      ",
+		"#      "
+	};
+
+	// 각 문자를 출력
+	for (int i = 0; i < 7; i++) {
+		std::cout << S[i] << "  " << H[i] << "  " << O[i] << "  " << P[i] << std::endl;
+	}
+	std::cout << std::endl;
 	return;
 }
 
-void Shop::menu()
+void Shop::menu() // 다형성
 {
-	std::cout << "a. 판매 품목 리스트 출력\t";
+	title();
+	std::cout << "a. 판매 품목 리스트 출력\n";
 	std::cout << "b. 계정 정보 출력\n";
 	std::cout << "q. 로그아웃\n";
+}
+
+int Shop::tryLogin()
+{
+	while (true)
+	{
+		title();
+		std::cout << "a. 관리자계정으로 입장\tb. 소비자계정으로 입장\nq. 종료";
+		switch (_getch())
+		{
+		case 'a':
+			return 1;
+		case 'b':
+			return 2;
+		case 'q':
+			return 3;
+		default:
+			std::cout << "잘못입력하셨습니다.\n";
+		}
+	}
 }
 
 // Seller Option Method
