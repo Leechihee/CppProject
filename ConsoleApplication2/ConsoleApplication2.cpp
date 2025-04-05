@@ -6,5 +6,8 @@ int main()
 	Customer customer("Customer", "customer", "99999999");
 	int test;
 
+	Shop s;
+	s.title();
+
 	return 0;
 }

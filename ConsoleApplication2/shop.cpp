@@ -31,11 +31,54 @@ void Shop::displayList()
 // Shop Public Method
 void Shop::title()
 {
-	return;
+    system("cls");
+    std::string S[] = {
+        " ■■■■■  ",
+        "■           ",
+        "■           ",
+        " ■■■■■  ",
+        "          ■ ",
+        "          ■ ",
+        "■■■■■   "
+    };
+    std::string H[] = {
+        "■        ■  ",
+        "■        ■  ",
+        "■        ■  ",
+        "■■■■■■  ",
+        "■        ■  ",
+        "■        ■  ",
+        "■        ■  "
+    };
+    std::string O[] = {
+        " ■■■■■  ",
+        "■        ■  ",
+        "■        ■  ",
+        "■        ■  ",
+        "■        ■  ",
+        "■        ■  ",
+        " ■■■■■   "
+    };
+    std::string P[] = {
+        " ■■■■■  ",
+        "■       ■  ",
+        "■       ■  ",
+        "■■■■■   ",
+        "■           ",
+        "■           ",
+        "■           "
+    };
+
+    // 각 문자를 출력
+    for (int i = 0; i < 7; i++) {
+        std::cout << S[i] << "  " << H[i] << "  " << O[i] << "  " << P[i] << std::endl;
+    }
+    std::cout << std::endl;
 }
 
 void Shop::menu()
 {
+    title();
 	std::cout << "a. 판매 품목 리스트 출력\t";
 	std::cout << "b. 계정 정보 출력\n";
 	std::cout << "q. 로그아웃\n";
