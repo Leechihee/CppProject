@@ -118,7 +118,7 @@ void Shop::displayThingsList(Seller seller)
 
 bool Shop::pushThingsToList(const Things& things,int index)
 {
-	if (thingsList.empty())
+	if (thingsList.empty() || index == thingsList.size() + 1)
 		thingsList.push_back(things);
 	else if (index < 1)
 	{
@@ -126,7 +126,7 @@ bool Shop::pushThingsToList(const Things& things,int index)
 		thingsList.insert((thingsList.begin()), things);
 		system("pause");
 	}
-	else if (index > thingsList.size())
+	else if (index > thingsList.size()+1)
 	{
 		std::cout << "\n 마지막보다 큰 번호를 입력하여 자동으로 마지막으로 추가합니다\n\n";
 		thingsList.push_back(things);

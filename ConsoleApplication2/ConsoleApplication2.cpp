@@ -126,12 +126,12 @@ int main()
 							std::cin >> index;
 							if (s.buyTheThings(index, cust.buyThings()))
 							{
-								std::cout << "\n\t성공적으로 구매하였습니다.\n\t";
+								std::cout << "\n\t성공적으로 구매하였습니다.\n\n\t";
 								system("pause");
 							}
 							else
 							{
-								std::cout << "\n\t오류로 인해 구매 실패했습니다..\n\t";
+								std::cout << "\n\t오류로 인해 구매 실패했습니다..\n\n\t";
 								system("pause");
 							}
 						case'q':
