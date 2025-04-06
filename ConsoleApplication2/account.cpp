@@ -59,10 +59,13 @@ void Things::operator+(const int& Count) {
 }
 
 bool Things::operator-(const int& Count) {
-	if (this->count > Count)
+	if (this->count >= Count)
 	{
 		this->count -= Count;
-		return true;
+		if (this->count == 0)
+			return false;
+		else
+			return true;
 	}
 	else
 	{
