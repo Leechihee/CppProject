@@ -1,95 +1,77 @@
-#include "shop.h"
+ï»¿#include "shop.h"
 #include <windows.h>
 #include <conio.h>
+#include <iomanip>
 
 // Shop Private Method
 void Shop::ListTop()
 {
 	system("cls");
-	for (int i = 0;i < 60;i++)
-		std::cout << '=';
-	std::cout << "\n\tÇ°¸ñ\t\t³²Àº °³¼ö\t\t°¡°Ý\n";
+	std::cout << std::string(60, '=') << std::endl;
+	std::cout << std::setw(4) << " "; // ë²ˆí˜¸ ìžë¦¬ í™•ë³´
+
+	std::cout << std::left << std::setw(18) << "í’ˆëª©";
+
+	std::string centerHeader = "ë‚¨ì€ ê°œìˆ˜";
+	int centerPadding = (18 - centerHeader.length()) / 2;
+	std::cout << std::string(centerPadding, ' ') << centerHeader << std::string(18 - centerPadding - centerHeader.length(), ' ');
+
+	std::cout << std::right << std::setw(18) << "ê°€ê²©" << std::endl;
 }
 
 void Shop::displayList()
 {
 	int index;
-	for (index = 0;index < thingsList.size();index++)
+	for (index = 0; index < max; index++)
 	{
-		std::cout << index + 1 << ". ";
-		thingsList[index].thingsDisplay();
+		std::cout << std::setw(3) << index + 1 << ". ";
+
+		if (index < thingsList.size())
+		{
+			thingsList[index].thingsDisplay();
+		}
+		else
+		{
+			// ë¹ˆ ì¹¸ ì¶œë ¥
+			std::cout << std::left << std::setw(18) << "----";
+
+			std::string mid = "----";
+			int midPadding = (18 - mid.length()) / 2;
+			std::cout << std::string(midPadding, ' ') << mid << std::string(18 - midPadding - mid.length(), ' ');
+
+			std::cout << std::right << std::setw(18) << "----" << std::endl;
+		}
 	}
-	for (;index < max;index++)
-	{
-		std::cout << index + 1 << ". ";
-		std::cout << '\t' << "----" << "\t\t  " << "----" << "\t\t\t" << "----" << '\t' << std::endl;
-	}
-	for (int i = 0;i < 60;i++)
-		std::cout << '=';
-	std::cout << std::endl;
+
+	std::cout << std::string(60, '=') << std::endl;
 }
 
 // Shop Public Method
 void Shop::title()
 {
-    system("cls");
-    std::string S[] = {
-        "  ¡á¡á¡á¡á¡á  ",
-        " ¡á           ",
-        " ¡á           ",
-        "  ¡á¡á¡á¡á¡á  ",
-        "           ¡á ",
-        "           ¡á ",
-        " ¡á¡á¡á¡á¡á   "
-    };
-    std::string H[] = {
-        "¡á        ¡á  ",
-        "¡á        ¡á  ",
-        "¡á        ¡á  ",
-        "¡á¡á¡á¡á¡á¡á  ",
-        "¡á        ¡á  ",
-        "¡á        ¡á  ",
-        "¡á        ¡á  "
-    };
-    std::string O[] = {
-        " ¡á¡á¡á¡á¡á  ",
-        "¡á        ¡á  ",
-        "¡á        ¡á  ",
-        "¡á        ¡á  ",
-        "¡á        ¡á  ",
-        "¡á        ¡á  ",
-        " ¡á¡á¡á¡á¡á   "
-    };
-    std::string P[] = {
-        " ¡á¡á¡á¡á¡á  ",
-        "¡á       ¡á  ",
-        "¡á       ¡á  ",
-        "¡á¡á¡á¡á¡á   ",
-        "¡á           ",
-        "¡á           ",
-        "¡á           "
-    };
+	system("cls");
 
-    for (int i = 0;i < 60;i++)
-        std::cout << '=';
-    std::cout << std::endl;
+	std::cout << std::string(60, '=') << std::endl;
 
-    // °¢ ¹®ÀÚ¸¦ Ãâ·Â
-    for (int i = 0; i < 7; i++) {
-        std::cout << S[i] << "  " << H[i] << "  " << O[i] << "  " << P[i] << std::endl;
-    }
+	std::cout << R"(
+            ######   #     #    #####    ######  
+           #         #     #   #     #   #     # 
+           #         #     #   #     #   #     # 
+            #####    #######   #     #   ###### 
+                 #   #     #   #     #   #      
+                 #   #     #   #     #   #      
+           ######    #     #    #####    #      
+)" << std::endl;
 
-    for (int i = 0;i < 60;i++)
-        std::cout << '=';
-    std::cout << std::endl;
+	std::cout << std::string(60, '=') << std::endl;
 }
 
 void Shop::menu()
 {
     title();
-	std::cout << "\n      a. ÆÇ¸Å Ç°¸ñ ¸®½ºÆ® Ãâ·Â";
-	std::cout << "      b. °èÁ¤ Á¤º¸ Ãâ·Â\n";
-	std::cout << "\n      q. ·Î±×¾Æ¿ô\n";
+	std::cout << "\n      a. íŒë§¤ í’ˆëª© ë¦¬ìŠ¤íŠ¸ ì¶œë ¥";
+	std::cout << "      b. ê³„ì • ì •ë³´ ì¶œë ¥\n";
+	std::cout << "\n      q. ë¡œê·¸ì•„ì›ƒ\n";
 }
 
 int Shop::tryLogin()
@@ -97,7 +79,7 @@ int Shop::tryLogin()
 	while (true)
 	{
 		title();
-		std::cout << "\n    a. °ü¸®ÀÚ°èÁ¤À¸·Î ÀÔÀå\tb. ¼ÒºñÀÚ°èÁ¤À¸·Î ÀÔÀå\n\n    q. ³ª°¡±â";
+		std::cout << "\n    a. ê´€ë¦¬ìžê³„ì •ìœ¼ë¡œ ìž…ìž¥\tb. ì†Œë¹„ìžê³„ì •ìœ¼ë¡œ ìž…ìž¥\n\n    q. ë‚˜ê°€ê¸°";
 		switch (_getch())
 		{
 		case 'a':
@@ -131,7 +113,7 @@ void Shop::displayThingsList(Seller seller)
 	ListTop();
 	displayList();
 	std::cout << std::endl;
-	std::cout << "      a.Ç°¸ñ Ãß°¡/¼öÁ¤\t  b.Ç°¸ñ Á¦°Å\t  q.³ª°¡±â\n";
+	std::cout << "      a.í’ˆëª© ì¶”ê°€/ìˆ˜ì •\t  b.í’ˆëª© ì œê±°\t  q.ë‚˜ê°€ê¸°\n";
 }
 
 bool Shop::pushThingsToList(const Things& things,int index)
@@ -140,13 +122,13 @@ bool Shop::pushThingsToList(const Things& things,int index)
 		thingsList.push_back(things);
 	else if (index < 1)
 	{
-		std::cout << "\n  1¹øº¸´Ù ÀÛÀº ¹øÈ£¸¦ ÀÔ·ÂÇÏ¿© ÀÚµ¿À¸·Î 1¹øÀ¸·Î Ãß°¡ÇÕ´Ï´Ù\n\n";
+		std::cout << "\n  1ë²ˆë³´ë‹¤ ìž‘ì€ ë²ˆí˜¸ë¥¼ ìž…ë ¥í•˜ì—¬ ìžë™ìœ¼ë¡œ 1ë²ˆìœ¼ë¡œ ì¶”ê°€í•©ë‹ˆë‹¤\n\n";
 		thingsList.insert((thingsList.begin()), things);
 		system("pause");
 	}
 	else if (index > thingsList.size())
 	{
-		std::cout << "\n ¸¶Áö¸·º¸´Ù Å« ¹øÈ£¸¦ ÀÔ·ÂÇÏ¿© ÀÚµ¿À¸·Î ¸¶Áö¸·À¸·Î Ãß°¡ÇÕ´Ï´Ù\n\n";
+		std::cout << "\n ë§ˆì§€ë§‰ë³´ë‹¤ í° ë²ˆí˜¸ë¥¼ ìž…ë ¥í•˜ì—¬ ìžë™ìœ¼ë¡œ ë§ˆì§€ë§‰ìœ¼ë¡œ ì¶”ê°€í•©ë‹ˆë‹¤\n\n";
 		thingsList.push_back(things);
 		system("pause");
 	}
@@ -177,7 +159,7 @@ void Shop::displayThingsList(Customer customer)
 	ListTop();
 	displayList();
 	std::cout << std::endl;
-	std::cout << "\ta.¹°°Ç ±¸¸ÅÇÏ±â\t\tq.³ª°¡±â\n";
+	std::cout << "\ta.ë¬¼ê±´ êµ¬ë§¤í•˜ê¸°\t\tq.ë‚˜ê°€ê¸°\n";
 }
 
 bool Shop::buyTheThings(const int& index, const int& count)

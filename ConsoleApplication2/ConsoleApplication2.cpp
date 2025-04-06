@@ -160,6 +160,7 @@ int main()
 		}
 		case 'q':
 		case 'Q':
+			system("cls");
 			return 0;
 		default:
 			continue;

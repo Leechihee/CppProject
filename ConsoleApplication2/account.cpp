@@ -1,6 +1,7 @@
 #include "account.h"
 #include <limits>
 #include <windows.h>
+#include <iomanip>
 
 // Seller Public Method
 void Seller::displayInfo() {
@@ -34,8 +35,20 @@ Things::Things(const Things& things)
 }
 
 void Things::thingsDisplay() {
-	std::cout << '\t' << thingsType << "\t\t   " << count << "\t\t\t" << amount << '\t' << std::endl;
+	const int leftWidth = 18;
+	const int centerWidth = 18;
+	const int rightWidth = 18;
+
+	std::cout << std::left << std::setw(leftWidth) << thingsType;
+
+	std::string countStr = std::to_string(count);
+	int countPadding = (centerWidth - countStr.length()) / 2;
+	std::cout << std::string(countPadding, ' ') << countStr << std::string(centerWidth - countPadding - countStr.length(), ' ');
+
+	std::cout << std::right << std::setw(rightWidth) << amount << std::endl;
 }
+
+
 
 void Things::setAmount(int Amount) {
 	amount = Amount;
