@@ -4,7 +4,8 @@
 int main()
 {
 	Shop s;
-	std::string type; int count, amount, index;
+	std::string type;
+	int count, amount, index;
 
 	while (true)
 	{
@@ -164,6 +165,5 @@ int main()
 			continue;
 		}
 	}
-
 	return 0;
 }

@@ -189,5 +189,6 @@ bool Shop::buyTheThings(const int& index, const int& count)
 	else
 	{
 		thingsList.erase(thingsList.begin() + index - 1);
+		return true;
 	}
 }
