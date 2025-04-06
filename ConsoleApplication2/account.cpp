@@ -2,12 +2,6 @@
 #include <limits>
 #include <windows.h>
 
-// Account Public Method
-bool Account::activite()
-{
-	return permission;
-}
-
 // Seller Public Method
 void Seller::displayInfo() {
 	std::cout << "\n\t\t      이름 : " << name << std::endl << "\n\t\t      권한 : 관리자\n\n\t    ";

@@ -14,7 +14,6 @@ public:
 	Account(std::string Name) : name(Name) {}
 	virtual void displayInfo() = 0; // 계정 정보 출력, 순수가상함수
 	// std::cout << "이름 : " << name << "\nID : " << id << std::endl << "권한 : ===\n";
-	virtual bool activite(); // 계정 권한 출력 / 판매자권한이면 true, 소비자권한이면 false 출력
 	~Account() {}
 };
 
