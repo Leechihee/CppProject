@@ -68,6 +68,7 @@ int main()
 										s.title();
 										std::cout << "\n\t  품목리스트에 추가하였습니다.\n\n\t  ";
 										system("pause");
+										login = false;
 										break;
 									case'b':
 									case'B':
