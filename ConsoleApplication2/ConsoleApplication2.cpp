@@ -1,4 +1,4 @@
-#include "shop.h"
+﻿#include "shop.h"
 #include <conio.h>
 
 int main()
